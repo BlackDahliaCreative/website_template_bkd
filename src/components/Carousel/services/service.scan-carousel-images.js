@@ -1,95 +1,64 @@
 /**
-    * This Script automatically creates a json file (service.carousel-images-data.json) that will group all the pictures 
-    * inside the subfolders of carousel-pictures in PUBLIC FOLDER.
-    * In this way the carousel component will dinamically create sections (the sub-folders) with relatives pictures.
-    * If everything is set up correctly all I need to do is adding subfolders with the images I would like to show, and re-run npm start.
-    * Things to keep in mind:
-    *  - The sub-folder name will be the carousel section name.
-    *  - The caption will auto-generate and will be by default null.  So If I need to add captions I will need to manually enter it in the json file. Adding a new picture to the folder won't reset all the others to null. 
-    *  - The Picture index in the carousel will be based on the number at the beginning of the name
-    *  - The Folders index will be based on the number at the beginning of the folder's name.
-    *  
-    * 
-    * ++++++++++++ IMPORTANT ++++++++++++
-    * Changing the file name will reset that in the json file, so make sure that I have all the names correctly before running npm start
-*/
+ * Builds service.carousel-images-data.json from the subfolders of public/carousel-pictures.
+ * Runs automatically before `npm start` and the builds (see `scan-images` in package.json),
+ * or by hand with `npm run scan-images`.
+ *
+ *  - Each subfolder becomes a carousel section. Its name minus the number prefix is the
+ *    section name ("1-Random Pictures" → "Random Pictures").
+ *  - Folders and pictures are ordered by the number at the start of their names (2 before 10).
+ *  - alt text defaults to the file name without number and extension.
+ *  - alt and extraCaption you edit in the JSON are kept when the script runs again.
+ *    Renaming a file or folder resets them for that entry.
+ */
 
-
-
-// The `fs` module enables interacting with the file system
 const fs = require('fs')
 const path = require('path')
+const { byLeadingNumber, stripFolderPrefix, altFromFile, listImages, normalizeSrc } = require('./service.scan-helpers')
 
-// Define the directory to scan (relative to this script’s location)
 const directoryPath = path.join(__dirname, '../../../../public/carousel-pictures')
 const jsonFilePath = path.join(__dirname, 'service.carousel-images-data.json')
 
-// Function to get all subfolders and their images
 const generateImageData = () => {
     if (!fs.existsSync(directoryPath)) {
         console.error(`Directory ${directoryPath} does not exist.`)
         return
     }
 
-    // Read the existing JSON file if it exists
-    let existingData = []
+    // Saved alt/captions, looked up by image path.
+    const existing = new Map()
     if (fs.existsSync(jsonFilePath)) {
         try {
-            existingData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'))
+            const saved = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'))
+            for (const folder of saved) {
+                for (const image of folder.images) {
+                    existing.set(normalizeSrc(image.src), image)
+                }
+            }
         } catch (error) {
-            console.error('Error parsing existing JSON data:', error)
+            console.error('Could not read the existing carousel JSON, starting fresh:', error.message)
         }
     }
 
-    // Create a lookup map from the existing data for easy access
-    const existingDataMap = new Map()
-    existingData.forEach((folder) => {
-        const imageMap = new Map()
-        folder.images.forEach((image) => {
-            imageMap.set(image.src, {  // Store `alt` and `extraCaption` in an object
-                alt: image.alt,
-                extraCaption: image.extraCaption,
-            })
-        })
-        existingDataMap.set(folder.name, imageMap)
-    })
-
-
-    // Get all subfolders and their images
     const folders = fs.readdirSync(directoryPath, { withFileTypes: true })
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => dirent.name)
+        .sort(byLeadingNumber)
 
-    const data = folders.map((folder) => {
-        // Strip the numeric prefix to match the existingDataMap keys
-        const folderNameWithoutPrefix = folder.split('-')[1]
-    
-        const images = fs.readdirSync(path.join(directoryPath, folder))
-            .filter((file) => /\.(png|jpe?g|webp)$/i.test(file))
-            .map((file) => {
-                const filePath = `carousel-pictures/${folder}/${file}`
-    
-                // Use folderNameWithoutPrefix for map lookup
-                const existingImage = existingDataMap.get(folderNameWithoutPrefix)?.get(filePath)
-    
-                return {
-                    src: filePath,
-                    alt: existingImage?.alt || filePath.split('.')[1],
-                    extraCaption: existingImage?.extraCaption ?? null,
-                }
-            })
-    
-        return {
-            name: folderNameWithoutPrefix,
-            images,
-        }
-    })
-        
+    const data = folders.map((folder) => ({
+        name: stripFolderPrefix(folder),
+        images: listImages(fs, path.join(directoryPath, folder)).map((file) => {
+            const src = `/carousel-pictures/${folder}/${file}`
+            const saved = existing.get(src)
+            return {
+                src,
+                alt: saved?.alt || altFromFile(file),
+                extraCaption: saved?.extraCaption ?? null,
+            }
+        }),
+    }))
 
-    // Write the data to a JSON file inside the Carousel component directory
-    fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2))
-    console.log('service.carousel-images-data.json generated successfully!')
+    fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2) + '\n')
+    console.log('service.carousel-images-data.json generated.')
 }
 
-// Run the function
 generateImageData()

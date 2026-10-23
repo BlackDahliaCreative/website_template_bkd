@@ -7,21 +7,6 @@
       "extraCaption": null
     },
     {
-      "src": "/single-carousel-folder/10.Hexagon.webp",
-      "alt": "Hexagon",
-      "extraCaption": null
-    },
-    {
-      "src": "/single-carousel-folder/11.This One.webp",
-      "alt": "This One",
-      "extraCaption": null
-    },
-    {
-      "src": "/single-carousel-folder/12.Form Background.webp",
-      "alt": "Form Background",
-      "extraCaption": null
-    },
-    {
       "src": "/single-carousel-folder/2.Orange Picture.webp",
       "alt": "Orange Picture",
       "extraCaption": null
@@ -59,6 +44,21 @@
     {
       "src": "/single-carousel-folder/9.Casa Colucci Flyer.webp",
       "alt": "Casa Colucci Flyer",
+      "extraCaption": null
+    },
+    {
+      "src": "/single-carousel-folder/10.Hexagon.webp",
+      "alt": "Hexagon",
+      "extraCaption": null
+    },
+    {
+      "src": "/single-carousel-folder/11.This One.webp",
+      "alt": "This One",
+      "extraCaption": null
+    },
+    {
+      "src": "/single-carousel-folder/12.Form Background.webp",
+      "alt": "Form Background",
       "extraCaption": null
     }
   ]

@@ -36,6 +36,7 @@ import React, {
     useState,
     useRef,
     useEffect,
+    useId,
     KeyboardEvent,
     MouseEvent,
     ReactNode,   
@@ -110,6 +111,11 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [isOpen, options, selectedOption])
 
+    // Move focus into the list when it opens, so its arrow/Enter/Escape handling works
+    useEffect(() => {
+        if (isOpen) { listRef.current?.focus() }
+    }, [isOpen])
+
     const toggleOpen = () => { setIsOpen((prev) => !prev) }
 
     const handleButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -124,6 +130,12 @@ const Dropdown: React.FC<DropdownProps> = ({
             event.preventDefault()
             setIsOpen(false)
             buttonRef.current?.focus()
+            return
+        }
+
+        // Tabbing away closes the list
+        if (event.key === "Tab") {
+            setIsOpen(false)
             return
         }
 
@@ -161,8 +173,12 @@ const Dropdown: React.FC<DropdownProps> = ({
         buttonRef.current?.focus()
     }
 
-    const listboxId = "dropdown-listbox"
-    const labelId = label ? "dropdown-label" : undefined
+    // Unique per instance, so several dropdowns on one page don't share IDs
+    const uid = useId()
+    const listboxId = `${uid}-listbox`
+    const labelId = label ? `${uid}-label` : undefined
+    const valueId = `${uid}-value`
+    const optionId = (index: number) => `${uid}-option-${index}`
 
     return (
         <div
@@ -181,13 +197,14 @@ const Dropdown: React.FC<DropdownProps> = ({
                 ref={buttonRef}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
-                aria-labelledby={labelId}
+                aria-controls={listboxId}
+                aria-labelledby={labelId ? `${labelId} ${valueId}` : undefined}
                 onClick={toggleOpen}
                 onKeyDown={handleButtonKeyDown}
-                name={name || ''}
-                id={id || ''}
+                name={name}
+                id={id}
             >
-                <span className="dropdown__button-text">
+                <span className="dropdown__button-text" id={valueId}>
                     {selectedOption ? selectedOption.label : placeholder}
                 </span>
                 <span className="dropdown__icon">
@@ -201,6 +218,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 aria-labelledby={labelId}
                 ref={listRef}
                 tabIndex={-1}
+                aria-activedescendant={isOpen && activeIndex !== null ? optionId(activeIndex) : undefined}
                 onKeyDown={handleListKeyDown}
             >
                 {options.map((opt, index) => {
@@ -210,6 +228,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                     return (
                         <li
                             key={opt.value}
+                            id={optionId(index)}
                             role="option"
                             aria-selected={isSelected}
                             className={`dropdown__option 

@@ -3,58 +3,50 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "spa-fallback": "node -e \"require('fs').copyFileSync('build/index.html','build/404.html')\"",
-    "build:preview": "env-cmd -f .env.preview react-scripts build",
-    "predeploy:preview": "npm run build:preview && npm run spa-fallback",
-    "deploy:preview": "node scripts/deploy.js live https://github.com/Marcolux/CLIENT_PREVIEW_REPO.git",
-    "build:official": "env-cmd -f .env.official react-scripts build",
-    "predeploy:official": "npm run build:official && npm run spa-fallback && node -e \"require('fs').writeFileSync('build/CNAME','CLIENT_DOMAIN.com')\"",
-    "deploy:official": "node scripts/deploy.js live https://github.com/Marcolux/CLIENT_LIVE_REPO.git"
+    "fonts": "node scripts/optimize-fonts.js",
+    "scan-images": "node src/components/Carousel/services/service.scan-carousel-images.js && node src/components/Carousel/services/service.scan-single-carousel-images.js",
+    "prestart": "npm run scan-images",
+    "start": "vite",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build:preview": "npm run scan-images && npm run typecheck && vite build --mode preview && vite build --mode preview --ssr src/entry-server.tsx --outDir build-ssr && node scripts/prerender.js --preview",
+    "predeploy:preview": "npm run build:preview",
+    "deploy:preview": "node scripts/deploy.js live https://github.com/BlackDahliaCreative/CLIENT_PREVIEW_REPO.git",
+    "build:official": "npm run scan-images && npm run typecheck && vite build --mode official && vite build --mode official --ssr src/entry-server.tsx --outDir build-ssr && node scripts/prerender.js",
+    "predeploy:official": "npm run build:official && node -e \"require('fs').writeFileSync('build/CNAME','CLIENT_DOMAIN.com')\"",
+    "deploy:official": "node scripts/deploy.js live https://github.com/BlackDahliaCreative/CLIENT_LIVE_REPO.git"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/merriweather": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/ledger": "^5.3.0",
+    "@fontsource/prata": "^5.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-spring/web": "^9.7.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.113",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
     "framer-motion": "^12.24.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-intersection-observer": "^10.0.0",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
-    "sass": "^1.79.4",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
-    "env-cmd": "^11.0.0",
-    "gh-pages": "^6.3.0"
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "^13.4.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "jsdom": "^26.1.0",
+    "sass": "^1.79.4",
+    "subset-font": "^2.9.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.7",
+    "vitest": "^3.2.7"
   }
 }

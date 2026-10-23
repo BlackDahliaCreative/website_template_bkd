@@ -1,0 +1,37 @@
+{
+  "siteName": "CLIENT_NAME",
+  "siteUrl": "https://www.CLIENT_DOMAIN.com",
+  "tagline": "CLIENT_TAGLINE",
+  "defaultDescription": "CLIENT_DESC",
+  "defaultImage": "/CLIENT_OG_IMAGE_PATH",
+  "pages": [
+    {
+      "path": "/",
+      "title": "",
+      "description": "CLIENT_DESC",
+      "changefreq": "monthly",
+      "priority": "1.0"
+    },
+    {
+      "path": "/carousels",
+      "title": "Carousels",
+      "description": "CLIENT_CAROUSELS_DESC",
+      "changefreq": "monthly",
+      "priority": "0.8"
+    },
+    {
+      "path": "/page-2",
+      "title": "Page 2",
+      "description": "CLIENT_PAGE2_DESC",
+      "changefreq": "monthly",
+      "priority": "0.8"
+    },
+    {
+      "path": "/animations",
+      "title": "Animations",
+      "description": "CLIENT_ANIMATIONS_DESC",
+      "changefreq": "monthly",
+      "priority": "0.8"
+    }
+  ]
+}

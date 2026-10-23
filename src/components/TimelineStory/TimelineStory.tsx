@@ -1,3 +1,4 @@
+import { publicUrl } from "../../utils/publicUrl"
 import './timeline-story.scss'
 import { slideList } from './slidesList' 
 import { useState } from 'react'
@@ -144,7 +145,7 @@ const TimeLineStory = (props: TimeLineStoryProps) => {
                             </div>
 
                             <div id="slidePic">
-                                <img id="slideImg" src={`${process.env.PUBLIC_URL}/timelineStory-pictures/${slideList[index].slide_body.rightBG}`} alt="Carousel 2"/>
+                                <img id="slideImg" src={publicUrl(`/timelineStory-pictures/${slideList[index].slide_body.rightBG}`)} alt="Carousel 2"/>
                                 <p className={`m-0 note_${index}`} id="picNote">{slideList[index].slide_body.picNote}</p>
                             </div>
                         </div>

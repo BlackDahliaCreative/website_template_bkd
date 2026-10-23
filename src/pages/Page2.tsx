@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import "./SphereHero.scss";
+import SEOHead from "../components/SEOHead/SEOHead";
 
 type Sphere = {
     id: string;
@@ -62,6 +63,7 @@ export default function SphereHero() {
 
   return (
     <section className="hero">
+      <SEOHead path="/page-2" />
       {/* Background spheres layer */}
       <div className="hero__bg" aria-hidden="true">
         <div className="hero__perspective">
@@ -109,7 +111,8 @@ export default function SphereHero() {
                         ease: "easeInOut",
                       }
                 }
-              >{s.id}</motion.div>
+              />
+
             )
           })}
         </div>

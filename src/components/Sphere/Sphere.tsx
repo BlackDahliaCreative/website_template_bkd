@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import './sphere.scss'
 import { useReducedMotion } from "framer-motion";
-import { InView } from 'react-intersection-observer';
 
 
 

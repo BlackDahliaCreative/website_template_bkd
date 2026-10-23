@@ -2,12 +2,14 @@ import "./page.scss"
 import Carousel from "../components/Carousel/Carousel"
 import AutoplayCarousel from "../components/AutoPlayCarousel/AutoplayCarousel"
 import { useState } from "react"
+import SEOHead from "../components/SEOHead/SEOHead"
 
 const Page1 = () => {
     const [carouselType, setCarouselType] = useState<"multi-folder" | "single-folder" | "single-preview">("multi-folder")
 
     return(
         <div className="page">
+            <SEOHead path="/carousels" />
             <div className="flex flex-alignItems-center">
                 <p>Select type</p>
                 <select 
