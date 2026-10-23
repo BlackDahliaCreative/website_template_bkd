@@ -1,10 +1,12 @@
 import "./page.scss" 
 import TimeLineStory from "../components/TimelineStory/TimelineStory"
+import SEOHead from "../components/SEOHead/SEOHead"
 
 const HomePage = () => {
 
     return(
         <div className="page">
+            <SEOHead canonicalPath="/" />
             <h1>HOME PAGE</h1>
 
             <h4>Time Line Story</h4>

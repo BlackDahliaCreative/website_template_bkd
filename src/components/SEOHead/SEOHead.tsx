@@ -3,10 +3,14 @@ import { Helmet } from 'react-helmet-async'
 // ═══════════════════════════════════════════════════════════════════
 // CLIENT CONFIG — update these two constants before launch
 // ═══════════════════════════════════════════════════════════════════
-const SITE_NAME   = 'CLIENT_NAME'                        // e.g. 'Acme Studio'
-const SITE_URL    = 'https://www.CLIENT_DOMAIN.com'      // canonical root, no trailing slash
+const SITE_NAME = 'CLIENT_NAME'                        // e.g. 'Acme Studio'
+const SITE_URL = 'https://www.CLIENT_DOMAIN.com'      // canonical root, no trailing slash
 const DEFAULT_IMG = `${SITE_URL}/CLIENT_OG_IMAGE_PATH`   // e.g. '/img/og-cover.jpg'
 // ═══════════════════════════════════════════════════════════════════
+
+// Preview builds (.env.preview → REACT_APP_SITE_ENV=preview) are never indexed,
+// so the GitHub Pages preview doesn't compete with the official site in search.
+const IS_PREVIEW = process.env.REACT_APP_SITE_ENV === 'preview'
 
 type Props = {
     title?: string          // page-specific portion, e.g. "About"
@@ -35,7 +39,7 @@ const SEOHead = ({
             <title>{fullTitle}</title>
             <meta name="description" content={description} />
             <link rel="canonical"    href={canonical} />
-            {noIndex && <meta name="robots" content="noindex, nofollow" />}
+            {(noIndex || IS_PREVIEW) && <meta name="robots" content="noindex, nofollow" />}
 
             {/* ── Open Graph ───────────────────────────────── */}
             <meta property="og:type"         content="website" />

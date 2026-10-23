@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "scan-images": "node src/components/Carousel/services/service.scan-carousel-images.js && node src/components/Carousel/services/service.scan-single-carousel-images.js",
+    "prestart": "npm run scan-images",
     "start": "react-scripts start",
+    "test": "react-scripts test",
     "spa-fallback": "node -e \"require('fs').copyFileSync('build/index.html','build/404.html')\"",
-    "build:preview": "env-cmd -f .env.preview react-scripts build",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "build:preview": "npm run scan-images && env-cmd -f .env.preview react-scripts build",
     "predeploy:preview": "npm run build:preview && npm run spa-fallback",
-    "deploy:preview": "node scripts/deploy.js live https://github.com/Marcolux/CLIENT_PREVIEW_REPO.git",
-    "build:official": "env-cmd -f .env.official react-scripts build",
-    "predeploy:official": "npm run build:official && npm run spa-fallback && node -e \"require('fs').writeFileSync('build/CNAME','CLIENT_DOMAIN.com')\"",
-    "deploy:official": "node scripts/deploy.js live https://github.com/Marcolux/CLIENT_LIVE_REPO.git"
+    "deploy:preview": "node scripts/deploy.js live https://github.com/BlackDahliaCreative/CLIENT_PREVIEW_REPO.git",
+    "build:official": "npm run scan-images && env-cmd -f .env.official react-scripts build",
+    "predeploy:official": "npm run build:official && npm run spa-fallback && npm run sitemap && node -e \"require('fs').writeFileSync('build/CNAME','CLIENT_DOMAIN.com')\"",
+    "deploy:official": "node scripts/deploy.js live https://github.com/BlackDahliaCreative/CLIENT_LIVE_REPO.git"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -76,7 +76,7 @@ const SinglePreviewSubComp = (props: SinglePreviewProps) => {
                         
                             <img
                                 key={index}
-                                src={`${process.env.PUBLIC_URL}/${img.src}`}
+                                src={`${process.env.PUBLIC_URL}${img.src.startsWith('/') ? '' : '/'}${img.src}`}
                                 alt={img.alt}
                                 onClick={() => {
                                     onDirectionChange(index < singlePicsIndx ? 'left' : 'right')
@@ -88,6 +88,7 @@ const SinglePreviewSubComp = (props: SinglePreviewProps) => {
                                     if (event.key === 'Enter') {
                                         onDirectionChange(index < singlePicsIndx ? 'left' : 'right')
                                         onSelectPicture(index)
+                                        setPicShowing(index)
                                     }
                                 }}
                                 className={picShowing === index ? "active" : ""}

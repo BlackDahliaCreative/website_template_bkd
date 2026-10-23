@@ -9,10 +9,11 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 import './style/App.scss';
 
-const HomePage   = lazy(() => import('./pages/HomePage'));
-const Page1      = lazy(() => import('./pages/Page1'));
-const Page2      = lazy(() => import('./pages/Page2'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const Page1 = lazy(() => import('./pages/Page1'));
+const Page2 = lazy(() => import('./pages/Page2'));
 const Animations = lazy(() => import('./pages/Animations'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
   const [smallScreenView, setSmallScreenView] = useState('Regular')
@@ -42,10 +43,11 @@ function App() {
       <main id="main-content">
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route path="/"          element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/Carousels" element={<Page1 />} />
-            <Route path="/page_2"    element={<Page2 />} />
+            <Route path="/page_2" element={<Page2 />} />
             <Route path="/Animations" element={<Animations />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
