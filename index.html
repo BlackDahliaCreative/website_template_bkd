@@ -18,16 +18,10 @@
                           Set to empty string "" to disable GTM entirely
          ═══════════════════════════════════════════════════════════════════ -->
 
-    <!-- Default description (overridden per-page by SEOHead component) -->
-    <meta
-      name="description"
-      content="CLIENT_DESC"
-    />
-
-    <!-- Favicon / PWA -->
-    <link rel="icon"             href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest"         href="%PUBLIC_URL%/manifest.json" />
+    <!-- Favicon / PWA (Vite adds the preview base path automatically) -->
+    <link rel="icon"             href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest"         href="/manifest.json" />
 
     <!-- Performance: preconnect to any third-party origins used site-wide -->
     <!-- Add / remove entries to match your actual external resources       -->
@@ -35,29 +29,13 @@
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />       -->
     <!-- <link rel="preconnect" href="https://use.typekit.net" crossorigin /> -->
 
-    <!-- Default title (overridden per-page by SEOHead component) -->
-    <title>CLIENT_NAME | CLIENT_TAGLINE</title>
+    <!-- Title, description, canonical, Open Graph and Twitter tags for each page come from
+         SEOHead (values in src/site.config.json). The build writes them in here: -->
+    <!--app-head-->
 
-    <!-- Canonical (overridden per-page by SEOHead component) -->
-    <link rel="canonical" href="CLIENT_URL" />
-
-    <!-- Open Graph (overridden per-page by SEOHead component) -->
-    <meta property="og:type"         content="website" />
-    <meta property="og:url"          content="CLIENT_URL" />
+    <!-- Same on every page -->
     <meta property="og:locale"       content="en_US" />
-    <meta property="og:site_name"    content="CLIENT_NAME" />
-    <meta property="og:title"        content="CLIENT_NAME | CLIENT_TAGLINE" />
-    <meta property="og:description"  content="CLIENT_DESC" />
-    <meta property="og:image"        content="CLIENT_OG_IMAGE" />
-    <meta property="og:image:width"  content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt"    content="CLIENT_NAME" />
-
-    <!-- Twitter / X Card (overridden per-page by SEOHead component) -->
-    <meta name="twitter:card"        content="summary_large_image" />
-    <meta name="twitter:title"       content="CLIENT_NAME | CLIENT_TAGLINE" />
-    <meta name="twitter:description" content="CLIENT_DESC" />
-    <meta name="twitter:image"       content="CLIENT_OG_IMAGE" />
     <meta name="twitter:image:alt"   content="CLIENT_NAME" />
 
     <!-- Google Tag Manager — replace GTM_ID or remove this block if not used -->
@@ -68,8 +46,9 @@
     })(window,document,'script','dataLayer','GTM_ID');</script> -->
     <!-- End Google Tag Manager -->
 
-    <!-- Organization JSON-LD — validate at: https://search.google.com/test/rich-results -->
-    <!-- Update all CLIENT_* fields below, or replace @type with "LocalBusiness" etc.     -->
+    <!-- Organization JSON-LD — validate at: https://search.google.com/test/rich-results       -->
+    <!-- CLIENT_NAME, CLIENT_URL, CLIENT_DESC and CLIENT_OG_IMAGE are filled in from             -->
+    <!-- src/site.config.json at build time. Fill in the social links, or use "LocalBusiness" etc. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -113,7 +92,8 @@
     <!-- Skip-to-content link: only visible on keyboard focus, lets users skip the navbar -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <!-- The build puts each page's full HTML inside #root (scripts/prerender.js) -->
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

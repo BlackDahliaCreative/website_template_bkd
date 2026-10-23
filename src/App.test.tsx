@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import site from './site.config.json';
 import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
@@ -18,13 +19,24 @@ test('renders the main navigation', () => {
   expect(screen.getByRole('navigation', { name: /main navigation/i })).toBeInTheDocument();
 });
 
+// Every page in site.config.json must have a route in App.tsx (also with the trailing
+// slash GitHub Pages adds), otherwise the pre-rendered file would show "Page not found".
+test.each(site.pages.flatMap((p) => (p.path === '/' ? [p.path] : [p.path, `${p.path}/`])))(
+  'site.config page %s has a route',
+  async (path) => {
+    renderAt(path);
+    await waitFor(() => expect(document.querySelector('.page-loader')).toBeNull());
+    expect(screen.queryByRole('heading', { name: /page not found/i })).toBeNull();
+  }
+);
+
 test('shows the not-found page for unknown URLs', async () => {
   renderAt('/this-page-does-not-exist');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
 });
 
 test('dropdown can be opened and used with the keyboard', () => {
-  const onChange = jest.fn();
+  const onChange = vi.fn();
   render(
     <Dropdown
       label="Project type"

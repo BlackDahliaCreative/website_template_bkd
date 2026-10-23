@@ -9,7 +9,7 @@ const Page1 = () => {
 
     return(
         <div className="page">
-            <SEOHead title="Carousels" description="CLIENT_CAROUSELS_DESC" canonicalPath="/Carousels" />
+            <SEOHead path="/carousels" />
             <div className="flex flex-alignItems-center">
                 <p>Select type</p>
                 <select 

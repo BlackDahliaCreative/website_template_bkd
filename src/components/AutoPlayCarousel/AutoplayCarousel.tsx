@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react'
 import { useTransition, animated } from "@react-spring/web";
 import { easings } from "@react-spring/web"; // Import easings for smoother transitions
 import allPictures from '../Carousel/services/service.single-folder-carousel-images-data.json'
+import { publicUrl } from '../../utils/publicUrl'
 import './AutoPlayCarousel.scss'
 
 interface AutoplayProps {
     interval: number
     className?: string
 }
-
-const withPublicUrl = (p: string) =>
-  `${process.env.PUBLIC_URL}${p.startsWith('/') ? '' : '/'}${p}`;
 
 const AutoplayCarousel = (props: AutoplayProps) => {
 
@@ -68,7 +66,7 @@ const AutoplayCarousel = (props: AutoplayProps) => {
                             className={`autoPlaySlide`}
                         >
                             <img 
-                                src={withPublicUrl(allPictures.images[index].src)}
+                                src={publicUrl(allPictures.images[index].src)}
                                 alt={allPictures.images[index].alt}
                                 onClick={() => { setIsPaused(!isPaused) }}
                                 onMouseOver={() => { setIsPaused(true) }}

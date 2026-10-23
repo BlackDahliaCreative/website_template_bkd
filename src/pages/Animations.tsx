@@ -6,7 +6,7 @@ const Animations = () => {
 
     return(
         <div className="page">
-            <SEOHead title="Animations" description="CLIENT_ANIMATIONS_DESC" canonicalPath="/Animations" />
+            <SEOHead path="/animations" />
             <h1>Animations</h1>
             <div className="flex flex-column flex-alignItems-center">
 

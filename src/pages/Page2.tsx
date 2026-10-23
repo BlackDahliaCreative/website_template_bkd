@@ -63,7 +63,7 @@ export default function SphereHero() {
 
   return (
     <section className="hero">
-      <SEOHead title="Page 2" description="CLIENT_PAGE2_DESC" canonicalPath="/page_2" />
+      <SEOHead path="/page-2" />
       {/* Background spheres layer */}
       <div className="hero__bg" aria-hidden="true">
         <div className="hero__perspective">

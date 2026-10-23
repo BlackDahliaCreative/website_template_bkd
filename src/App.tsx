@@ -44,9 +44,9 @@ function App() {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/Carousels" element={<Page1 />} />
-            <Route path="/page_2" element={<Page2 />} />
-            <Route path="/Animations" element={<Animations />} />
+            <Route path="/carousels" element={<Page1 />} />
+            <Route path="/page-2" element={<Page2 />} />
+            <Route path="/animations" element={<Animations />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

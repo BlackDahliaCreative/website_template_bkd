@@ -36,9 +36,9 @@ const NavigationBarSmallScreen = () => {
                     <animated.div style={style} id="smallScreenMenu" role="dialog" aria-label="Navigation menu">
                         <nav aria-label="Main navigation" className='navBarSm'>
                             <Link className="navLinks" onClick={toggleLogic} to={'/'}>Home Page</Link>
-                            <Link className="navLinks" onClick={toggleLogic} to={'/Carousels'}>Carousels</Link>
-                            <Link className="navLinks" onClick={toggleLogic} to={'/page_2'}>Page 2</Link>
-                            <Link className="navLinks" onClick={toggleLogic} to={'/Animations'}>Animations</Link>
+                            <Link className="navLinks" onClick={toggleLogic} to={'/carousels/'}>Carousels</Link>
+                            <Link className="navLinks" onClick={toggleLogic} to={'/page-2/'}>Page 2</Link>
+                            <Link className="navLinks" onClick={toggleLogic} to={'/animations/'}>Animations</Link>
                         </nav>
                     </animated.div>
                 ) : null

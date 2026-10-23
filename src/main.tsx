@@ -1,30 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as MainRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import App from './App'
+import { routerBasename } from './utils/publicUrl'
 
-import './style/index.scss';
+import './style/index.scss'
 import './style/settings/settings.scss'
 
-const basename = (process.env.PUBLIC_URL || '').replace(/\/+$/, '')
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-)
-root.render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <MainRouter basename={basename}>
-        <App/>
-      </MainRouter>
-    </HelmetProvider>
-  </React.StrictMode>
+const container = document.getElementById('root') as HTMLElement
+
+const app = (
+    <React.StrictMode>
+        <HelmetProvider>
+            <BrowserRouter basename={routerBasename}>
+                <App />
+            </BrowserRouter>
+        </HelmetProvider>
+    </React.StrictMode>
 )
 
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
+// Built pages already contain the page's HTML (see scripts/prerender.js): React just
+// "hydrates" it, attaching clicks and animations. In `npm start` the page starts empty.
+if (container.firstElementChild) {
+    ReactDOM.hydrateRoot(container, app)
+} else {
+    ReactDOM.createRoot(container).render(app)
+}

@@ -1,3 +1,4 @@
+import { publicUrl } from "../../utils/publicUrl"
 import { useEffect, useRef, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -76,7 +77,7 @@ const SinglePreviewSubComp = (props: SinglePreviewProps) => {
                         
                             <img
                                 key={index}
-                                src={`${process.env.PUBLIC_URL}${img.src.startsWith('/') ? '' : '/'}${img.src}`}
+                                src={publicUrl(img.src)}
                                 alt={img.alt}
                                 onClick={() => {
                                     onDirectionChange(index < singlePicsIndx ? 'left' : 'right')

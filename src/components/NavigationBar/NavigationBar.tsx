@@ -6,9 +6,9 @@ const NavigationBar = () => {
     return (
         <nav aria-label="Main navigation" className="flex flex-alignItems-center flex-justifyContent-center navBar">
             <Link className="navLinks" to={'/'}>Home Page</Link>
-            <Link className="navLinks" to={'/Carousels'}>Carousels</Link>
-            <Link className="navLinks" to={'/page_2'}>Page 2</Link>
-            <Link className="navLinks" to={'/Animations'}>Animations</Link>
+            <Link className="navLinks" to={'/carousels/'}>Carousels</Link>
+            <Link className="navLinks" to={'/page-2/'}>Page 2</Link>
+            <Link className="navLinks" to={'/animations/'}>Animations</Link>
         </nav>
     )
 }

@@ -6,7 +6,7 @@ const HomePage = () => {
 
     return(
         <div className="page">
-            <SEOHead canonicalPath="/" />
+            <SEOHead path="/" />
             <h1>HOME PAGE</h1>
 
             <h4>Time Line Story</h4>

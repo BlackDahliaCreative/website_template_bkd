@@ -6,6 +6,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import AllPics from './services/service.carousel-images-data.json' 
 import AllPicsSingleFolder from './services/service.single-folder-carousel-images-data.json' 
 import './carousel.scss'
+import { publicUrl } from '../../utils/publicUrl'
 
 import SinglePreviewSubComp from "./SinglePreviewSubComp";
 
@@ -20,9 +21,6 @@ interface Image {
     alt: string,
     extraCaption: string | null
 }
-
-const withPublicUrl = (p: string) =>
-  `${process.env.PUBLIC_URL}${p.startsWith('/') ? '' : '/'}${p}`;
 
 
 const Carousel = (props: CarouselProps) => {
@@ -164,7 +162,7 @@ const Carousel = (props: CarouselProps) => {
                                 >
                                     <img
                                         className='carouselSinglePic'
-                                        src={withPublicUrl(item.src)}
+                                        src={publicUrl(item.src)}
                                         alt={item.alt}
                                     />
                                 </animated.div>
