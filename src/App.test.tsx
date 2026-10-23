@@ -25,7 +25,8 @@ test.each(site.pages.flatMap((p) => (p.path === '/' ? [p.path] : [p.path, `${p.p
   'site.config page %s has a route',
   async (path) => {
     renderAt(path);
-    await waitFor(() => expect(document.querySelector('.page-loader')).toBeNull());
+    // Pages load lazily; the first one using a big library (framer-motion) can take a second
+    await waitFor(() => expect(document.querySelector('.page-loader')).toBeNull(), { timeout: 5000 });
     expect(screen.queryByRole('heading', { name: /page not found/i })).toBeNull();
   }
 );

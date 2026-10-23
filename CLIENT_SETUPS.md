@@ -58,6 +58,37 @@ Replace the placeholders in these files:
    - Start every photo name with a number to set its order, for example `1.Beach.webp`, `2.Dinner.webp`.
    - The photo lists update by themselves when you run `npm start`. To add captions, edit the `.json` files in `src/components/Carousel/services/`. Your captions are kept when the lists update.
 
+### Fonts
+
+**Google fonts (most fonts):** nothing to download by hand.
+
+1. Find the font on [fontsource.org](https://fontsource.org). The "Install" tab shows the package name.
+2. Install it, choosing the `-variable` version when there is one (it has every weight in one file):
+   ```bash
+   npm install @fontsource-variable/montserrat
+   ```
+3. Add one line to `src/style/fonts.ts`:
+   ```ts
+   import '@fontsource-variable/montserrat'   // font-family: 'Montserrat Variable'
+   ```
+4. Use it in your styles, for example add a class in `src/style/settings/_font_families.scss`:
+   ```scss
+   .font-montserrat { font-family: 'Montserrat Variable', Arial, sans-serif !important; }
+   ```
+5. Remove the fonts the site doesn't use from `fonts.ts`, and uninstall them with `npm uninstall @fontsource-variable/<name>`.
+
+The fonts are served from the client's own site, not from Google, so there's no GDPR problem.
+
+**Other fonts (commercial fonts, or fonts not on Google):**
+
+1. Put the `.ttf` or `.otf` files in their own folder inside `src/style/fonts/`.
+2. Run `npm run fonts`. It creates a much smaller `.woff2` copy next to each one.
+3. In `src/style/settings/_font_families.scss`, add an `@font-face` that points to the **`.woff2`** file and includes `font-display: swap;` (copy the Bison one).
+
+If the site is in Greek, Cyrillic or another non-Latin alphabet, open `scripts/optimize-fonts.js` and follow the note at the top before running `npm run fonts`. Google fonts from Fontsource already include those alphabets.
+
+**Preload the main font:** in `index.html`, point the `<link rel="preload">` to the font used at the top of every page, usually the menu or the headings. Use its "latin" file, for example `/node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2`. Preload only one or two fonts.
+
 ---
 
 ## 4. Replace the demo content

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import NavigationBar from './components/NavigationBar/NavigationBar';
@@ -16,28 +16,11 @@ const Animations = lazy(() => import('./pages/Animations'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
-  const [smallScreenView, setSmallScreenView] = useState('Regular')
-  const handleResize = () => {
-    window.innerWidth < 768 ? setSmallScreenView('SmallScreen') : setSmallScreenView('Regular')
-  }
-
-  useEffect(() => {
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
   return (
     <div className="App flex flex-column col-12">
-      {
-        smallScreenView === 'Regular'
-        ?
-        <NavigationBar/>
-        :
-        <NavigationBarSmallScreen/>
-      }
+      {/* Both menus are rendered; CSS in App.scss shows one per screen size, so nothing jumps */}
+      <div className="nav-desktop"><NavigationBar/></div>
+      <div className="nav-mobile"><NavigationBarSmallScreen/></div>
 
       <ScrollToTop />
       <main id="main-content">

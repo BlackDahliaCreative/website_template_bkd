@@ -5,8 +5,8 @@ import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 import { routerBasename } from './utils/publicUrl'
 
-import './style/index.scss'
-import './style/settings/settings.scss'
+import './style/fonts'
+import './style/index.scss' // also includes style/settings/settings.scss
 
 const container = document.getElementById('root') as HTMLElement
 

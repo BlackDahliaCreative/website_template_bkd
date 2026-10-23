@@ -1,57 +1,52 @@
+// ═══════════════════════════════════════════════════════════════════
+// FONTS
+// ═══════════════════════════════════════════════════════════════════
+// Google Fonts → installed with npm and imported in src/style/fonts.ts (Fontsource).
+//                Nothing to download by hand and nothing loaded from Google.
+//
+// Other fonts  → (commercial, or not on Google) put the .ttf/.otf in src/style/fonts/<Name>/,
+//                run `npm run fonts` to make a small .woff2, and add an @font-face below
+//                pointing to the .woff2 (copy one of the existing ones).
+//
+// Every class has fallbacks, shown for a moment while the font loads (font-display: swap).
 
-@font-face {
-	font-family: 'Ledger';
-	src: url('../fonts/ledger/Ledger-Regular.ttf');
-}
-@font-face {
-	font-family: 'Bebas Neue';
-	src: url('../fonts/Bebas_Neue/BebasNeue-Regular.ttf');
-}
-@font-face {
-	font-family: 'Prata';
-	src: url('../fonts/Prata/Prata-Regular.ttf');
-}
+// ── Local fonts (not on Google Fonts) ─────────────────────────────────
 @font-face {
 	font-family: 'Bison';
-	src: url('../fonts/Bison/Bison-Bold.ttf');
+	src: url('../fonts/Bison/Bison-Bold.woff2') format('woff2');
+	font-display: swap;
 }
 @font-face {
 	font-family: 'September Script';
-	src: url('../fonts/September_script/september-script.regular.ttf');
+	src: url('../fonts/September_script/september-script.regular.woff2') format('woff2');
+	font-display: swap;
 }
-@font-face {
-	font-family: 'Playfair Display';
-	src: url('../fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf');
-}
-@font-face {
-	font-family: 'Inter';
-	src: url('../fonts/Inter/Inter-Regular.ttf');
-}
-@font-face {
-	font-family: 'Merriweather';
-	src: url('../fonts/Merriweather/Merriweather-Regular.ttf');
-}
-.font-ledger {
-	font-family: 'Ledger' !important;
-}
-.font-bebas-neue {
-	font-family: 'Bebas Neue' !important;
-}
-.font-prata {
-	font-family: 'Prata' !important;
-}
-.font-bison {
-	font-family: 'Bison' !important;
-}
-.font-september-script {
-	font-family: 'September Script' !important;
+
+// ── Font classes ──────────────────────────────────────────────────────
+// Google fonts (see src/style/fonts.ts)
+.font-inter {
+	font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif !important;
 }
 .font-playfair-display {
-	font-family: 'Playfair Display' !important;
-}
-.font-inter {
-	font-family: 'Inter' !important;
+	font-family: 'Playfair Display Variable', Georgia, 'Times New Roman', serif !important;
 }
 .font-merriweather {
-	font-family: 'Merriweather' !important;
+	font-family: 'Merriweather Variable', Georgia, 'Times New Roman', serif !important;
+}
+.font-bebas-neue {
+	font-family: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif !important;
+}
+.font-prata {
+	font-family: 'Prata', Georgia, serif !important;
+}
+.font-ledger {
+	font-family: 'Ledger', Georgia, serif !important;
+}
+
+// Local fonts
+.font-bison {
+	font-family: 'Bison', Impact, 'Arial Narrow', sans-serif !important;
+}
+.font-september-script {
+	font-family: 'September Script', 'Brush Script MT', cursive !important;
 }

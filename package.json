@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "fonts": "node scripts/optimize-fonts.js",
     "scan-images": "node src/components/Carousel/services/service.scan-carousel-images.js && node src/components/Carousel/services/service.scan-single-carousel-images.js",
     "prestart": "npm run scan-images",
     "start": "vite",
@@ -18,6 +19,12 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/merriweather": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/ledger": "^5.3.0",
+    "@fontsource/prata": "^5.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-spring/web": "^9.7.5",
@@ -37,6 +44,7 @@
     "@vitejs/plugin-react": "^5.2.0",
     "jsdom": "^26.1.0",
     "sass": "^1.79.4",
+    "subset-font": "^2.9.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.7",
     "vitest": "^3.2.7"

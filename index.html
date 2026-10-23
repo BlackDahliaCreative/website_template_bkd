@@ -23,9 +23,15 @@
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest"         href="/manifest.json" />
 
+    <!-- Preload the font used above the fold (the menu), so it arrives with the page.     -->
+    <!-- Preload only 1-2 fonts that every page uses (the "latin" file); the rest load later. -->
+    <!-- Fontsource files are in node_modules/@fontsource(-variable)/<name>/files/          -->
+    <link rel="preload" href="/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
     <!-- Performance: preconnect to any third-party origins used site-wide -->
     <!-- Add / remove entries to match your actual external resources       -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <!-- Uncomment together with Google Tag Manager below:                  -->
+    <!-- <link rel="preconnect" href="https://www.googletagmanager.com" />  -->
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />       -->
     <!-- <link rel="preconnect" href="https://use.typekit.net" crossorigin /> -->
 

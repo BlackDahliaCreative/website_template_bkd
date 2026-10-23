@@ -18,6 +18,7 @@ Starting a new client site? Follow **[CLIENT_SETUPS.md](CLIENT_SETUPS.md)**.
 | `npm run deploy:preview` | Builds and publishes the preview site |
 | `npm run deploy:official` | Builds and publishes the official site |
 | `npm run scan-images` | Rebuilds the carousel image lists (also runs automatically) |
+| `npm run fonts` | Makes small `.woff2` copies of the local fonts in `src/style/fonts` (fonts not on Google Fonts) |
 
 ---
 
@@ -49,7 +50,9 @@ The preview build tells search engines not to index any page, so it never compet
 | Pages | `src/pages/` |
 | Routes (which URL shows which page) | `src/App.tsx` |
 | Menus | `src/components/NavigationBar*` |
-| Global styles, fonts, variables | `src/style/` |
+| Global styles and variables | `src/style/` |
+| Google fonts (installed with npm via Fontsource) | `src/style/fonts.ts` |
+| Other fonts (commercial, or not on Google) | `src/style/fonts/`, plus `@font-face` in `src/style/settings/_font_families.scss` |
 | Images and other static files | `public/` |
 | Social links, language, structured data, Google Tag Manager | `index.html` |
 
